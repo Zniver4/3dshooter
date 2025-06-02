@@ -3,29 +3,26 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour, IDamageable
 {
     [Header("Life Setting")]
-    [SerializeField] private float health = 100f;
-    [SerializeField] private float shield = 50f;
+    [SerializeField] private int health = 100;
+    [SerializeField] private int shield = 50;
 
     private void Update()
     {
         if(health <= 0)
         {
             gameObject.SetActive(false);
-            Debug.Log(gameObject.name + ": Muerto");
         }
     }
 
-    public void ApplyDamage(float damageTaken)
+    public void ApplyDamage(int damageTaken)
     {
         if (shield > 0)
         {
             shield -= damageTaken;
-            Debug.Log(shield);
         }
         else
         {
             health -= damageTaken;
-            Debug.Log(health);
         }
     }
 }

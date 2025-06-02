@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    public static Action<int, int> OnShoot;
+
     [Header("References")]
     [Tooltip("Lugar del cual saldra el RayCast del disparo")]
     [SerializeField] private Transform playerCamera;
@@ -12,8 +15,8 @@ public class WeaponController : MonoBehaviour
 
     [Header("Damage")]
     [Tooltip("Daño del Disparo")]
-    [SerializeField] private float minDamage = 18;
-    [SerializeField] private float maxDamage = 25;
+    [SerializeField] private int minDamage = 18;
+    [SerializeField] private int maxDamage = 25;
 
     [Header("LayerMask")]
     [Tooltip("Objetos a los que le Puedes Hacer Daño")]
@@ -33,6 +36,8 @@ public class WeaponController : MonoBehaviour
     private void Start()
     {
         currentAmmo = magazineSize;
+
+        OnShoot?.Invoke(currentAmmo, magazineSize);
     }
 
     private void Update()
@@ -47,12 +52,12 @@ public class WeaponController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime && currentAmmo > 0)
         {
             nextFireTime = Time.time + (1f / fireRate);
-            Debug.Log(nextFireTime);
 
             currentAmmo--;
+            OnShoot?.Invoke(currentAmmo, magazineSize);
 
-            Vector3 rayOrigin = playerCamera.transform.position;
-            Vector3 rayDirection = playerCamera.transform.forward;
+            Vector3 rayOrigin = playerCamera.position;
+            Vector3 rayDirection = playerCamera.forward;
 
             RaycastHit hitInfo;
 
@@ -64,7 +69,7 @@ public class WeaponController : MonoBehaviour
 
                 if (damageable != null)
                 {
-                    float damage = Random.Range(minDamage, maxDamage);
+                    int damage = UnityEngine.Random.Range(minDamage, maxDamage);
                     damageable.ApplyDamage(damage);
                 }
             }
@@ -81,6 +86,8 @@ public class WeaponController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             currentAmmo = magazineSize;
+
+            OnShoot?.Invoke(currentAmmo, magazineSize);
         }
     }
 }
