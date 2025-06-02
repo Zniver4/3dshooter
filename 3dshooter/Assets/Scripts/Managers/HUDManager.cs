@@ -1,9 +1,12 @@
-using Mirror.Examples.MultipleAdditiveScenes;
+using System;
 using TMPro;
 using UnityEngine;
 
 public class HUDManager : MonoBehaviour
 {
+    public static Action OnPlayerWin;
+    public static Action OnEnemyWin;
+
     public TextMeshProUGUI bulletText;
     public TextMeshProUGUI scoreText;
 
@@ -34,6 +37,11 @@ public class HUDManager : MonoBehaviour
         playerScore++;
 
         Score();
+
+        if(playerScore >= 30)
+        {
+            OnPlayerWin?.Invoke();
+        }
     }
 
     void PlayerKilled()
@@ -41,6 +49,11 @@ public class HUDManager : MonoBehaviour
         enemyScore++;
 
         Score();
+
+        if (enemyScore >= 30)
+        {
+            OnEnemyWin?.Invoke();
+        }
     }
     
     void Score()
