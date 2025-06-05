@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintMultiplier = 1.5f;
     public float jumpForce = 5f;
     public Rigidbody rb;
-    public Transform cameraTransform; // <--- Asigna tu cï¿½mara principal aquï¿½
+    public Transform cameraTransform; // <--- Asigna tu cámara principal aquí
     private bool isGrounded;
 
     void Start()
@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Movimiento relativo a la cï¿½mara
+        // Movimiento relativo a la cámara
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         move.y = 0f;
         move = move.normalized * currentSpeed;
 
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        rb.velocity = new Vector3(move.x, rb.velocity.y, move.z);
 
         // Salto
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)

@@ -34,7 +34,7 @@ public class Move : NetworkBehaviour
         move.y = 0f;
         move = move.normalized * currentSpeed;
 
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        rb.velocity = new Vector3(move.x, rb.velocity.y, move.z);
 
         // Salto
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
