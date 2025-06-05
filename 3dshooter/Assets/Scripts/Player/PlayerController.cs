@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class PlayerController : MonoBehaviour
+using Mirror;
+public class PlayerController : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform PlayerCamera;
@@ -32,10 +32,19 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
+
+        // Desactiva la cámara si no es el jugador local
+        if (!isLocalPlayer && PlayerCamera != null)
+        {
+            PlayerCamera.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
     {
+        // Solo el jugador local puede controlar este objeto
+        if (!isLocalPlayer) return;
+
         InputManagement();
         Movement();
     }
@@ -48,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void GroundMovement()
     {
-        Vector3 move = new Vector3 (HorizontalInput, 0, VerticalInput);
+        Vector3 move = new Vector3(HorizontalInput, 0, VerticalInput);
         move = transform.TransformDirection(move);
 
         move *= Speed;
