@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using Mirror;
 
-public class WeaponController : MonoBehaviour
+public class WeaponControllerMirror : NetworkBehaviour
 {
     public static Action<int, int> OnShoot;
 
@@ -42,6 +43,8 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
+        if (!isLocalPlayer) return;
+
         Shoot();
         Reload();
     }
