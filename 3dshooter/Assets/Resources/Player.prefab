@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1040075290819922962}
   - component: {fileID: 5917657643659529017}
   - component: {fileID: 7934777904917017787}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2915608150707724757}
   - component: {fileID: 8289772183293412914}
   - component: {fileID: 3775044366764072393}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 540613621642396777}
   - component: {fileID: 8151306786188058945}
   - component: {fileID: -2321846660983898655}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,6 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb39c1419d8912b49ac3d8f8a1a222c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   PlayerCamera: {fileID: 2915608150707724757}
   Speed: 5
   Gravity: 9.81
@@ -269,13 +272,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd33b1bf27aeda478359d116fdaefe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerCamera: {fileID: 2915608150707724757}
-  range: 15
+  range: 150
   minDamage: 18
   maxDamage: 25
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   fireRate: 10
   magazineSize: 30
 --- !u!114 &8151306786188058945
@@ -340,7 +346,7 @@ GameObject:
   - component: {fileID: 8102281369070018787}
   - component: {fileID: 5497648607132543372}
   - component: {fileID: 3470141927029013868}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

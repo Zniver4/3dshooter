@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using Mirror;
+using System;
+using Unity.VisualScripting;
 
 public class HealthManagerMirror : NetworkBehaviour, IDamageable
 {
+    public static Action OnEnemyDeath;
+
     [Header("Life Settings")]
     [SyncVar] public int health = 100;
     [SyncVar] public int shield = 50;
+
+    public int actualHealth;
+    public int actualShield;
 
     public override void OnStartServer()
     {
@@ -15,28 +22,33 @@ public class HealthManagerMirror : NetworkBehaviour, IDamageable
     [ServerCallback]
     private void Update()
     {
-        if (health <= 0)
+        if (actualHealth <= 0)
         {
             RpcHandleDeath();
-            this.enabled = false; // desactivar lógica de salud en el servidor si quieres
+            OnEnemyDeath?.Invoke();
         }
+    }
+
+    private void OnEnable()
+    {
+        OnEnemyDeath += Reset;
+    }
+
+    private void OnDisable()
+    {
+        OnEnemyDeath -= Reset;
     }
 
     [Server]
     public void ApplyDamage(int damageTaken)
     {
-        if (shield > 0)
+        if (actualShield > 0)
         {
-            shield -= damageTaken;
-            if (shield < 0)
-            {
-                health += shield; // shield es negativo, así que resta al health
-                shield = 0;
-            }
+            actualShield -= damageTaken;
         }
         else
         {
-            health -= damageTaken;
+            actualHealth -= damageTaken;
         }
     }
 
@@ -61,5 +73,11 @@ public class HealthManagerMirror : NetworkBehaviour, IDamageable
     {
         transform.position = position;
         gameObject.SetActive(true);
+    }
+
+    void Reset()
+    {
+        actualHealth = health;
+        actualShield = shield;
     }
 }

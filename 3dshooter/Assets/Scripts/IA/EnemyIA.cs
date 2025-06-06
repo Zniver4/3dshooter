@@ -1,5 +1,4 @@
-﻿using Mirror.Examples.Common;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyIA : MonoBehaviour
@@ -88,9 +87,8 @@ public class EnemyIA : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
 
-        if (!alreadyAttacked/* && Time.time >= nextFireTime*/)
+        if (!alreadyAttacked)
         {
-            nextFireTime = Time.time + (1f / fireRate);
 
             Vector3 rayOrigin = shootPoint.position;
             Vector3 rayDirection = shootPoint.forward;

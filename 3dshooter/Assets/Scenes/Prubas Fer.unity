@@ -566,8 +566,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 63
   range: 50
-  fireRate: 5
-  timeBetweenAttacks: 0.5
+  fireRate: 10
+  timeBetweenAttacks: 0.2
   minDamage: 18
   maxDamage: 25
   walkPoint: {x: 0, y: 0, z: 0}
