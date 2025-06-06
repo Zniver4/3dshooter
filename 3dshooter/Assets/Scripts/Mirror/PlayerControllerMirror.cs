@@ -30,7 +30,6 @@ public class PlayerControllerMirror : NetworkBehaviour
     {
         _controller = GetComponent<CharacterController>();
 
-        // Desactiva la cámara si no es el jugador local
         if (!isLocalPlayer && PlayerCamera != null)
         {
             PlayerCamera.gameObject.SetActive(false);
@@ -39,7 +38,6 @@ public class PlayerControllerMirror : NetworkBehaviour
 
     private void Update()
     {
-        // Solo el jugador local puede controlar este objeto
         if (!isLocalPlayer) return;
 
         InputManagement();
