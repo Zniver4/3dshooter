@@ -10,6 +10,7 @@ public class PlayerControllerMirror : NetworkBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float Speed = 5f;
     [SerializeField] private float Gravity = 9.81f;
+    [SerializeField] private float JumpForce = 8f; // <-- Añadido: fuerza de salto
 
     private float _verticalVelocity;
 
@@ -57,23 +58,24 @@ public class PlayerControllerMirror : NetworkBehaviour
 
         move *= Speed;
 
-        move.y = ApplyGravity();
-
-        _controller.Move(move * Time.deltaTime);
-    }
-
-    private float ApplyGravity()
-    {
+        // Salto y gravedad
         if (_controller.isGrounded)
         {
-            _verticalVelocity = -1f;
+            _verticalVelocity = -1f; // Empuja al personaje hacia abajo para mantenerlo en el suelo
+
+            if (Input.GetButtonDown("Jump")) // Por defecto, la barra espaciadora
+            {
+                _verticalVelocity = JumpForce;
+            }
         }
         else
         {
             _verticalVelocity -= Gravity * Time.deltaTime;
         }
 
-        return _verticalVelocity;
+        move.y = _verticalVelocity;
+
+        _controller.Move(move * Time.deltaTime);
     }
 
     private void InputManagement()
